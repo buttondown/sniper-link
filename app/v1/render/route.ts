@@ -163,12 +163,12 @@ const generateURL = async (
 ): Promise<string | undefined> => {
   if (provider === "gmail") {
     if (context === "ios") {
-      // Use universal links which don't show permission prompt
-      return `https://gmail.app.goo.gl`;
+      // googlegmail:// URL scheme opens the Gmail app directly
+      return `googlegmail://`;
     }
     if (context === "android" && ANDROID_OPEN_PLAY_STORE) {
-      // Use deep links instead of Play Store
-      return `intent://gmail.app.goo.gl/#Intent;package=com.google.android.gms;scheme=https;S.browser_fallback_url=https://mail.google.com/mail/;end`;
+      // Intent URL to open Gmail app, falls back to web Gmail if not installed
+      return `intent://open/#Intent;scheme=googlegmail;package=com.google.android.gm;S.browser_fallback_url=https%3A%2F%2Fmail.google.com%2Fmail%2F;end`;
     }
     return `https://mail.google.com/mail/u/${recipient}/#search/from%3A(${sender})+in%3Aanywhere+newer_than%3A1h`;
   }
