@@ -4,7 +4,6 @@ import * as Sentry from "@sentry/nextjs";
 import { response } from "../response";
 
 const HOST = process.env.NODE_ENV === "production" ? "https://sniperl.ink" : "";
-const ONE_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 // When this flag is true, links on Android will use the Intent URL API to open
 // the Play Store listing, where users can then tap "Open" to open the app.
 // This is unfortunately the best solution we've found on Android.
