@@ -4,7 +4,7 @@ import {
   parseMxRecords,
   PROVIDERS,
   generateLink,
-} from "./route";
+} from "./providers";
 
 // --- parseMxRecords ---
 
