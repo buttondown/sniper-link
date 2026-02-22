@@ -135,6 +135,12 @@ const generateProviderViaDNS = async (
     .join(" ")
     .toLowerCase();
 
+  return matchProviderFromMxValues(mxValues);
+};
+
+export const matchProviderFromMxValues = (
+  mxValues: string,
+): Provider | null => {
   // Check for Outlook type first (consumer vs Office 365)
   const outlookType = detectOutlookType(mxValues);
   if (outlookType) {
@@ -145,7 +151,10 @@ const generateProviderViaDNS = async (
     const providerKey = provider as Provider;
 
     for (const domain of PROVIDER_DOMAINS[providerKey]) {
-      if (mxValues.includes(domain)) {
+      if (
+        mxValues.includes(`.${domain}`) ||
+        mxValues.includes(` ${domain}`)
+      ) {
         return providerKey;
       }
     }
