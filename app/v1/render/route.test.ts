@@ -207,8 +207,8 @@ describe("provider desktop links", () => {
 
   it("gmail: searches by sender in recipient's mailbox", () => {
     const url = find("gmail").getDesktopLink(opts);
-    expect(url).toContain("mail.google.com/mail/u/");
-    expect(url).toContain(encodeURIComponent(opts.recipient));
+    expect(url).toContain("mail.google.com/mail/u/0/");
+    expect(url).toContain(`authuser=${encodeURIComponent(opts.recipient)}`);
     expect(url).toContain(encodeURIComponent(opts.sender));
     expect(url).toContain("newer_than%3A1h");
   });
