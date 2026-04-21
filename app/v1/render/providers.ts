@@ -49,8 +49,13 @@ export const PROVIDERS: ReadonlyArray<Provider> = [
     name: "gmail",
     prettyName: "Gmail",
     domains: ["gmail.com", "googlemail.com", "google.com"],
+    // Gmail's `/u/<X>/` segment expects a numeric account index, not an email.
+    // Passing an email works only when that account happens to be signed in at
+    // that index; for Workspace/custom-domain accounts or not-signed-in users it
+    // throws an error before the `#search` fragment ever runs. `authuser` is the
+    // resolver Gmail itself uses to hand off to the right account (or to sign-in).
     getDesktopLink: ({ recipient, sender }) =>
-      `https://mail.google.com/mail/u/${encodeURIComponent(recipient)}/#search/from%3A(${encodeURIComponent(sender)})+in%3Aanywhere+newer_than%3A1h`,
+      `https://mail.google.com/mail/u/0/?authuser=${encodeURIComponent(recipient)}#search/from%3A(${encodeURIComponent(sender)})+in%3Aanywhere+newer_than%3A1h`,
     getIosLink: () => "googlegmail://",
     getAndroidLink: () =>
       getAndroidIntentUrl("com.google.android.gm", "https://mail.google.com/"),
